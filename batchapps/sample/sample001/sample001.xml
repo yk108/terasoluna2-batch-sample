@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.5.xsd">
+
+
+	<!-- トランザクション別Bean定義モデルのインポート -->
+	<import resource="classpath:template/ChunkTransactionBean.xml" />
+
+	<!-- SqlMapConfig -->
+	<bean id="sqlMapConfigFileName" class="java.lang.String">
+		<constructor-arg value="sample/sample001/sample001_sqlMapConfig.xml" />
+	</bean>
+
+	<!-- ジョブコンテキスト -->
+	<bean id="jobContext" class="com.yk108.batch2.sample001.Sample001JobContext" />
+
+	<!-- ジョブ前処理 -->
+	<util:list id="jobPreLogicList">
+		<bean class="com.yk108.batch2.sample001.Sample001PreLogic">
+			<property name="queryDAO" ref="queryDAO" />
+		</bean>
+	</util:list>
+
+    <bean id="collector"
+          class="com.yk108.batch2.sample001.Sample001DbCollector">
+        <property name="messageAccessor" ref="messageAccessor" />
+        <property name="queryDAO" ref="queryDAO" />
+        <property name="collectedDataHandlerFactory">
+            <bean class="jp.terasoluna.fw.batch.standard.ChunkerFactory">
+                <property name="chunkSize" value="1" />
+            </bean>
+        </property>
+    </bean>
+
+	<!-- ビジネスロジック -->
+	<bean id="blogic" class="com.yk108.batch2.sample001.Sample001BLogic">
+<!-- 		<property name="queryDAO" ref="queryDAO" /> -->
+<!-- 		<property name="updateDAO" ref="updateDAO" /> -->
+<!-- 		<property name="messageAccessor" ref="messageAccessor" /> -->
+	</bean>
+</beans>

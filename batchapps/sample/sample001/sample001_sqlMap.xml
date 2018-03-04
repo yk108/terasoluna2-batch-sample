@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+ "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="sample001">
+
+	<select id="getUnyohiduke" resultClass="java.util.Date">
+		SELECT UNYOHIDUKE FROM UNYOHIDUKETABLE
+	</select>
+
+	<select id="getCustomerDate" resultClass="com.yk108.batch2.sample001.Customer">
+		SELECT CUSTOMER_ID, CUSTOMER_NAME, ZIP_NO, ADDRESS, TEL, MAIL, JOB_ID, NOTE, SALARY FROM CUSTOMER ORDER BY CUSTOMER_ID;
+	</select>
+
+</sqlMap>
