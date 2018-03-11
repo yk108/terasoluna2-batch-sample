@@ -21,6 +21,8 @@ public class Sample001PreLogic implements SupportLogic<Sample001JobContext> {
 	 *            ジョブコンテキスト
 	 */
 	public BLogicResult execute(Sample001JobContext jobContext) {
+		
+		// ファイルの入力チェックを行う
 
 		// “運用日付”を取得し、ジョブコンテキストに設定する。
 		Date unyohiduke = queryDAO.executeForObject("sample001.getUnyohiduke", null, Date.class);

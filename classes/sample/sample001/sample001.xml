@@ -8,6 +8,9 @@
 
 	<!-- トランザクション別Bean定義モデルのインポート -->
 	<import resource="classpath:template/ChunkTransactionBean.xml" />
+	
+	<!-- ファイルアクセスBean定義ファイルをインポート -->
+    <import resource="classpath:template/FileAccessBean.xml" />
 
 	<!-- SqlMapConfig -->
 	<bean id="sqlMapConfigFileName" class="java.lang.String">
@@ -24,21 +27,25 @@
 		</bean>
 	</util:list>
 
-    <bean id="collector"
-          class="com.yk108.batch2.sample001.Sample001DbCollector">
-        <property name="messageAccessor" ref="messageAccessor" />
-        <property name="queryDAO" ref="queryDAO" />
-        <property name="collectedDataHandlerFactory">
-            <bean class="jp.terasoluna.fw.batch.standard.ChunkerFactory">
-                <property name="chunkSize" value="1" />
-            </bean>
-        </property>
-    </bean>
+    <!-- コレクタ  -->
+	<bean id="collector" class="com.yk108.batch2.sample001.Sample001FileCollector">
+		<property name="messageAccessor" ref="messageAccessor" />
+		<property name="fileDao" ref="csvFileQueryDAO" />
+		<property name="collectedDataHandlerFactory">
+			<bean class="jp.terasoluna.fw.batch.standard.ChunkerFactory">
+				<property name="chunkSize" value="1" />
+			</bean>
+		</property>
+	</bean>
 
 	<!-- ビジネスロジック -->
 	<bean id="blogic" class="com.yk108.batch2.sample001.Sample001BLogic">
-<!-- 		<property name="queryDAO" ref="queryDAO" /> -->
-<!-- 		<property name="updateDAO" ref="updateDAO" /> -->
-<!-- 		<property name="messageAccessor" ref="messageAccessor" /> -->
+		<property name="updateDAO" ref="updateDAO" />
+		<property name="queryDAO" ref="queryDAO" />
 	</bean>
+
+
+
+
+
 </beans>

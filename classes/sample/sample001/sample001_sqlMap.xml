@@ -5,11 +5,26 @@
 <sqlMap namespace="sample001">
 
 	<select id="getUnyohiduke" resultClass="java.util.Date">
-		SELECT UNYOHIDUKE FROM UNYOHIDUKETABLE
+		SELECT UNYOHIDUKE FROM
+		UNYOHIDUKETABLE
 	</select>
 
 	<select id="getCustomerDate" resultClass="com.yk108.batch2.sample001.Customer">
-		SELECT CUSTOMER_ID, CUSTOMER_NAME, ZIP_NO, ADDRESS, TEL, MAIL, JOB_ID, NOTE, SALARY FROM CUSTOMER ORDER BY CUSTOMER_ID;
+		SELECT CUSTOMER_ID,
+		CUSTOMER_NAME, ZIP_NO, ADDRESS, TEL, MAIL, JOB_ID, NOTE, SALARY FROM
+		CUSTOMER ORDER BY CUSTOMER_ID;
 	</select>
+	
+	   <select id="getCustomerId" resultClass="java.lang.String">
+        SELECT COALESCE(MAX(CUSTOMER_ID), '0') FROM CUSTOMER;
+    </select>
+
+	<insert id="insertCustomer"
+		parameterClass="com.yk108.batch2.sample001.Customer">
+		INSERT INTO CUSTOMER(customer_id, customer_name, zip_no, address, tel,
+		mail, sex, job_id,  salary, note, insert_date, update_date)
+		VALUES (#customerId#, #customerName#, #zipNo#, #address#, #tel#,
+		#mail#, #sex#, #jobId#, #salary#, #note#, current_date, null)
+	</insert>
 
 </sqlMap>

@@ -2,30 +2,74 @@ package com.yk108.batch2.sample001;
 
 import java.io.Serializable;
 
+import jp.terasoluna.fw.file.annotation.FileFormat;
+import jp.terasoluna.fw.file.annotation.InputFileColumn;
+
+@FileFormat(overWriteFlg=true, headerLineCount=1, trailerLineCount=0, fileEncoding="MS932")
 public class Customer implements Serializable{
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * 顧客ID.
+	 */
 	private String customerId;
-	
+
+	/**
+	 * 顧客名.
+	 */
+	@InputFileColumn(columnIndex = 0)
 	private String customerName;
 	
+	/**
+	 * 郵便番号.
+	 */
+	@InputFileColumn(columnIndex = 1)
 	private String zipNo;
 	
+	/**
+	 * 住所.
+	 */
+	@InputFileColumn(columnIndex = 2)
 	private String address;
 	
+	/**
+	 * 電話番号.
+	 */
+	@InputFileColumn(columnIndex = 3)
 	private String tel;
 	
+	/**
+	 * メールアドレス.
+	 */
+	@InputFileColumn(columnIndex = 4)
 	private String mail;
 	
+	/**
+	 * 性別.
+	 */
+	@InputFileColumn(columnIndex = 5)
 	private String sex;
 	
-	private String note;
-	
+	/**
+	 * ジョブコード
+	 */
+	@InputFileColumn(columnIndex = 6)
 	private String jobId;
 	
+	/**
+	 * 年収.
+	 */
+	@InputFileColumn(columnIndex = 7)
 	private String salary;
 
+	/**
+	 * 備考.
+	 */
+	@InputFileColumn(columnIndex = 8)
+	private String note;
+	
+	
 	public String getCustomerId() {
 		return customerId;
 	}
